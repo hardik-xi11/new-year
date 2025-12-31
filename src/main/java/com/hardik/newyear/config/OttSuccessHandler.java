@@ -1,4 +1,4 @@
-package com.hardik.newyear;
+package com.hardik.newyear.config;
 
 import com.hardik.newyear.service.MimeEmailService;
 import com.hardik.newyear.service.UserService;

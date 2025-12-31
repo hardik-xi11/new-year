@@ -22,7 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found: " + email);
         }
         return User.withUsername(user.getEmail())
-                .password("{noop}") // Password not required for OTT
+                .password("{noop}")
                 .authorities("ROLE_USER")
                 .build();
     }
