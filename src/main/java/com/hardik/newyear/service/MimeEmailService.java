@@ -23,7 +23,7 @@ public class MimeEmailService {
             message.setFrom("hardikkumar0005@gmail.com");
             helper.setTo(to);
             helper.setSubject(subject);
-            helper.setText(text, true);
+            helper.setText(text,true);
 
             mailSender.send(message);
         }
