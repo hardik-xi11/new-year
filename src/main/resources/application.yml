@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: new-year
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${GMAIL_MAIL_USERNAME}
+    password: ${GMAIL_MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/db?options=-c%20timezone=UTC
+    username: user
+    password: pass
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 8000
+
+logging:
+  level:
+    org:
+      springframework:
+        security: TRACE
