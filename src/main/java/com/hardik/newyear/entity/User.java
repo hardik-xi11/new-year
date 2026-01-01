@@ -15,12 +15,16 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
 
+    @Column(nullable = false, columnDefinition = "boolean default true")
+    private boolean subscribed = true;
+
     public User() {
     }
 
-    public User(UUID id, String email) {
+    public User(UUID id, String email, boolean subscribed) {
         this.id = id;
         this.email = email;
+        this.subscribed = subscribed;
     }
 
     public UUID getId() {
@@ -37,5 +41,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean getSubscribed() {
+        return subscribed;
+    }
+
+    public void setSubscribed(boolean subscribed) {
+        this.subscribed = subscribed;
     }
 }

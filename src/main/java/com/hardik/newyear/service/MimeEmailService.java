@@ -1,6 +1,7 @@
 package com.hardik.newyear.service;
 
 import com.hardik.newyear.record.SpaceXLaunch;
+import com.hardik.newyear.record.SpacexQueryResult;
 import gg.jte.TemplateEngine;
 import gg.jte.output.StringOutput;
 import jakarta.mail.MessagingException;
@@ -49,6 +50,27 @@ public class MimeEmailService {
 
             helper.setTo(to);
             helper.setSubject("🚀 SpaceX Launch Update: " + launch.name());
+            helper.setText(htmlBody,true);
+
+            mailSender.send(message);
+        }
+        catch (MessagingException ex) {
+            // simply log it and go on...
+            System.err.println(ex.getMessage());
+        }
+    }
+
+    public void sendUpcomingLaunchesEmail(String to, SpacexQueryResult<SpaceXLaunch> launch) {
+        try {
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+            StringOutput output = new StringOutput();
+            templateEngine.render("upcoming-launches.jte", launch, output);
+            String htmlBody = output.toString();
+
+            helper.setTo(to);
+            helper.setSubject("🚀 SpaceX Launch Schedule");
             helper.setText(htmlBody,true);
 
             mailSender.send(message);
