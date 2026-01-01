@@ -7,14 +7,12 @@ public record SpaceXLaunch(
         String name,
         @JsonProperty("flight_number") int flightNumber,
         @JsonProperty("date_utc") String dateUtc,
+        Object rocket,
         boolean success,
         String details,
-        @JsonProperty("rocket") String rocketId,
         Links links
 ) {
-    public record Links(Patch patch, String webcast) {
-    }
 
-    public record Patch(String small, String large) {
-    }
+    public record Links(String webcast, Patch patch) {}
+    public record Patch(String small, String large) {}
 }
