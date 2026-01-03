@@ -14,9 +14,9 @@ spring:
             enable: true
             required: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/db?options=-c%20timezone=UTC
-    username: user
-    password: pass
+    url: jdbc:postgresql://ep-super-bush-a4hmetuo-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+    username: neondb_owner
+    password: npg_9bgoyUQL5dtu
   jpa:
     hibernate:
       ddl-auto: update

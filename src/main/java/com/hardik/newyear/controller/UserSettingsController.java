@@ -28,4 +28,15 @@ public class UserSettingsController {
 
         return "redirect:/dashboard";
     }
+
+    @PostMapping("/delete-account")
+    public String deleteAccount(Authentication authentication) {
+        String email = authentication.getName();
+
+        User user = userRepository.findByEmail(email);
+
+        userRepository.delete(user);
+
+        return ":/";
+    }
 }

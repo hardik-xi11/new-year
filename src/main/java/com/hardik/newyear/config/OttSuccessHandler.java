@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.ott.OneTimeToken;
 import org.springframework.security.web.authentication.ott.OneTimeTokenGenerationSuccessHandler;
 import org.springframework.security.web.authentication.ott.RedirectOneTimeTokenGenerationSuccessHandler;
@@ -23,10 +24,12 @@ public class OttSuccessHandler implements OneTimeTokenGenerationSuccessHandler {
 
     private final MimeEmailService emailService;
     private final UserService userService;
+    private final String frontendUrl;
 
-    public OttSuccessHandler(MimeEmailService emailService, UserService userService) {
+    public OttSuccessHandler(MimeEmailService emailService, UserService userService, @Value("${app.cors.allowed-origins:http://localhost:5173}") String frontendUrl) {
         this.emailService = emailService;
         this.userService = userService;
+        this.frontendUrl = frontendUrl;
     }
 
     @Override
@@ -34,7 +37,7 @@ public class OttSuccessHandler implements OneTimeTokenGenerationSuccessHandler {
 
 
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(request.getRequestURL().toString())
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(frontendUrl)
                 .replacePath(request.getContextPath())
                 .replaceQuery(null)
                 .fragment(null)
@@ -48,7 +51,7 @@ public class OttSuccessHandler implements OneTimeTokenGenerationSuccessHandler {
         System.out.println("Token generated for user: " + oneTimeToken.getUsername());
 
         String email = getUserEmail(oneTimeToken.getUsername());
-        emailService.sendEmail(email, "Your Spring Security One Time Token", "Use the following link to sign in into the application: " + magicLink);
+        emailService.sendEmail(email, "Your Space-X-Dash One Time Token 🚀", "Use the following link to sign in into the application: " + magicLink);
         this.redirectHandler.handle(request, response, oneTimeToken);
 
     }

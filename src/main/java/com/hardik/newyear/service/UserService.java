@@ -2,6 +2,7 @@ package com.hardik.newyear.service;
 
 import com.hardik.newyear.entity.User;
 import com.hardik.newyear.repository.UserRepository;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,9 +52,4 @@ public class UserService {
 
     }
 
-    public User deleteUser(String email){
-        User user = userRepository.findByEmail(email);
-        userRepository.delete(user);
-        return user;
-    }
 }
